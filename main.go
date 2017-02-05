@@ -2,7 +2,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 )
 
 // Server - structure for creating server
@@ -11,9 +13,19 @@ type Server struct {
 	port string
 }
 
+func hello(res http.ResponseWriter, req *http.Request) {
+	fmt.Fprintln(res, "hello, world")
+}
+
 // Run - run the web server
 func (s *Server) Run() {
-	http.ListenAndServe(":"+s.port, nil)
+	http.HandleFunc("/", hello)
+	fmt.Println("listening...")
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	if err != nil {
+		panic(err)
+	}
+	// http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
 
 func init() {

@@ -5,6 +5,8 @@
   "main": "main.go",
   "license": "MIT",
   "scripts": {
+    "build": "go build ./main.go",
+    "start": "PORT=5000 ./main",
     "vendor:save": "godep save && yarn",
     "vendor:restore": "godep restore",
     "docs": "swagger generate spec -o ./docs/swagger.json",
