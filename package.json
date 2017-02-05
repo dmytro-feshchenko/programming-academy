@@ -1,0 +1,14 @@
+{
+  "name": "brainly",
+  "version": "0.0.1",
+  "description": "Service for learning programming",
+  "main": "main.go",
+  "license": "MIT",
+  "scripts": {
+    "vendor:save": "godep save && yarn",
+    "vendor:restore": "godep restore",
+    "docs": "swagger generate spec -o ./docs/swagger.json",
+    "docs:generate": "swagger generate server -A LessonList -f ./config/swagger.yml",
+    "docs:validate:spec": "swagger validate ./config/swagger.yml"
+  }
+}

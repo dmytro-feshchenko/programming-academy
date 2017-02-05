@@ -1,0 +1,72 @@
+swagger: "2.0"
+info:
+  title: Programming Academy
+  description: Web server and client for online learning center
+  version: 1.0.0
+consumes:
+- application/json
+produces:
+- application/json
+schemes:
+- http
+- https
+paths:
+  /:
+    get:
+      tags:
+        - lessons
+      parameters:
+        - name: since
+          in: query
+          type: integer
+          format: int64
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          default: 20
+      responses:
+        200:
+          description: list the lessons
+          schema:
+            type: array
+            items:
+              $ref: "#definitions/lesson"
+        default:
+          description: generic error response
+          schema:
+            $ref: "#definitions/error"
+definitions:
+  lesson:
+    type: object
+    required:
+      - title
+      - description
+    properties:
+      id:
+        type: integer
+        format: int64
+        readOnly: true
+      title:
+        type: string
+        minLength: 10
+        maxLength: 1000
+      description:
+        type: string
+        minLength: 50
+        maxLength: 5000
+      order:
+        type: integer
+        format: int64
+      visible:
+        type: boolean
+  error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
