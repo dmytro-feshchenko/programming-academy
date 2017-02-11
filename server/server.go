@@ -1,14 +1,20 @@
 package server
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
 
-// Server - structure for creating server
-type Server struct {
-	host string
-	port string
+	"github.com/gorilla/mux"
+)
+
+func hello(res http.ResponseWriter, req *http.Request) {
+	fmt.Fprintln(res, "hello, world")
 }
 
-// Run - run the web server
-func (s *Server) Run() {
-	http.ListenAndServe(":"+s.port, nil)
+func Run() {
+	// create new router
+	r := mux.NewRouter()
+
+	// default page
+	r.Handle("/", hello)
 }

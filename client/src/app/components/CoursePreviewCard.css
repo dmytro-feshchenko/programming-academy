@@ -1,0 +1,24 @@
+.course-preview-card {
+  display: inline-block;
+  max-width: 300px;
+  background: grey;
+  border: 1px solid #ddd;
+  padding: 20px 30px;
+}
+
+/* Completed course block */
+.course-preview-card_completed {
+  background: yellow;
+}
+
+.course-preview-card__logo {
+
+}
+
+.course-preview-card__title {
+
+}
+
+.course-preview-card__description {
+
+}
