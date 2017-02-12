@@ -39,4 +39,4 @@ Thumbs.db
 # Vendor packages #
 ######################
 node_modules
-vendor
+# vendor
