@@ -4,25 +4,34 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/labstack/echo"
 )
 
-var mySigningKey = []byte("secret")
+// Login - get auth token with username and password
+func Login(c echo.Context) error {
+	username := c.FormValue("username")
+	password := c.FormValue("password")
 
-// Get auth token
-func GetAuthToken(w http.ResponseWriter, r *http.Request) {
-	// create the new token for auth
-	token := jwt.New(jwt.SigningMethodHS256)
+	if username == "myuser" && password == "1234" {
+		// create jwt token
+		token := jwt.New(jwt.SigningMethodHS256)
 
-	// create a map to store our claims
-	claims := token.Claims.(jwt.MapClaims)
+		// set claims
+		claims := token.Claims.(jwt.MapClaims)
+		claims["name"] = "Dmitryi Feschenko"
+		claims["admin"] = true
+		claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
-	// set token claims
-	claims["admin"] = true
-	claims["name"] = "Ado Kukic"
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+		// generate encoded token and send it to response
+		t, err := token.SignedString([]byte("secret"))
+		if err != nil {
+			return err
+		}
+		return c.JSON(http.StatusOK, map[string]string{
+			"token": t,
+		})
+	}
 
-	// sign the token with secret key
-	tokenString, _ := token.SignedString(mySigningKey)
-	w.Write([]byte(tokenString))
+	return echo.ErrUnauthorized
 }

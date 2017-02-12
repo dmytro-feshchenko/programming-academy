@@ -10,12 +10,16 @@ import (
 type User struct {
 	gorm.Model
 
-	Birthday time.Time `json:"birthday"`
-	Age      uint8     `json:"age"`
-	Name     string    `json:"name",gorm:"size:150"`
+	FirstName string `json:"first_name" gorm:"size:255" form:"first_name" query:"first_name"`
+	LastName  string `json:"last_name" gorm:"size:255" form:"last_name" query:"last_name"`
+	Password  string `json:"password,omitempty"`
 
-	CreditCard CreditCard `json:"credit_card"` // One-To-One relationship
-	Email      []Email    `json:"emails"`      // One-To-Many relationship
+	Birthday        time.Time  `json:"birthday" form:"birthday" query:"birthday"`
+	CreditCard      CreditCard `json:"credit_card"` // One-To-One relationship
+	Email           string     `json:"email" form:"email" query:"email"`
+	IsEmailVerified bool       `sql:"DEFAULT:false"`
+	IsSubscribed    bool       `sql:"DEFAULT:true"`
+	// Email      []Email    `json:"emails"`      // One-To-Many relationship
 }
 
 // Email - email for user

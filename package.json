@@ -5,30 +5,39 @@
   "main": "main.go",
   "license": "MIT",
   "scripts": {
-    "run": "better-npm-run run",
-    "vendor:save": "better-npm-run vendor:save",
+    "start": "better-npm-run start:server",
+    "build": "better-npm-run build:client:prod && better-npm-run build:server",
     "build:server": "better-npm-run build:server",
-    "webpack": "better-npm-run webpack",
-    "webpack-dev-server": "webpack-dev-server --config ./config/webpack.config.js --progress --colors",
-    "start:server": "better-npm-run start:server",
+    "build:client": "better-npm-run build:client:prod",
+    "dev:client": "better-npm-run watch:client",
+    "dev:server": "better-npm-run dev:server",
+    "vendor:save": "better-npm-run vendor:save",
+    "vendor:restore": "better-npm-run vendor:restore",
     "generate:docs": "better-npm-run generate:docs",
-    "vendor:restore": "better-npm-run vendor:restore"
+    "postinstall": "better-npm-run build:client:prod"
   },
   "betterScripts": {
-    "start": {
-      "command": "echo 'No run command yet!' && exit 1;"
+    "build:client:prod": {
+      "command": "rimraf client/dist && mkdirp client/dist && webpack --progress --profile --colors --config config/webpack.prod.config.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
-    "run": {
+    "build:server": {
+      "command": "go build ./main.go"
+    },
+    "watch:client": {
+      "command": "webpack-dev-server --config ./config/webpack.dev.config.js --progress --colors"
+    },
+    "dev:server": {
       "command": "go run ./main.go",
       "env": {
         "PORT": 5000,
         "DATABASE_URL": ""
       }
     },
-    "webpack": "webpack --config ./config/webpack.config.js",
     "vendor:save": "godep save && yarn",
     "vendor:restore": "godep restore",
-    "build:server": "go build ./main.go",
     "start:server": {
       "command": "./main",
       "env": {
@@ -46,12 +55,27 @@
     "babel-preset-react": "^6.22.0",
     "better-npm-run": "^0.0.14",
     "css-loader": "^0.26.1",
+    "eslint-friendly-formatter": "^2.0.7",
     "extract-text-webpack-plugin": "^2.0.0-beta",
+    "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.28.0",
+    "mkdirp": "^0.5.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "vue": "^2.1.10",
+    "vue-hot-reload-api": "^2.0.8",
+    "vue-html-loader": "^1.2.3",
+    "vue-loader": "^10.3.0",
+    "vue-resource": "^1.2.0",
+    "vue-router": "^2.2.0",
+    "vue-style-loader": "^2.0.0",
+    "vue-template-compiler": "^2.1.10",
+    "vuex": "^2.1.2",
+    "vuex-router-sync": "^4.1.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
     "webpack-notifier": "^1.5.0"
