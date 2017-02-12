@@ -14,7 +14,7 @@
     "vendor:save": "better-npm-run vendor:save",
     "vendor:restore": "better-npm-run vendor:restore",
     "generate:docs": "better-npm-run generate:docs",
-    "postinstall": "better-npm-run build:client:prod"
+    "postinstall": "npm run build:client"
   },
   "betterScripts": {
     "build:client:prod": {
