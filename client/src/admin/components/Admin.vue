@@ -7,9 +7,9 @@
       <div class="app__header">
         <header-bar></header-bar>
       </div>
-      <!-- <div class="app__content">
+      <div class="app__content">
         <router-view></router-view>
-      </div> -->
+      </div>
       <div class="app__footer">
         <footer-bar></footer-bar>
       </div>
