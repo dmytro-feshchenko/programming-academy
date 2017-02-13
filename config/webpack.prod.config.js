@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const config = require('./webpack.base.config');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackNotifierPlugin = require("webpack-notifier");
+const webpack = require('webpack')
+const config = require('./webpack.base.config')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackNotifierPlugin = require('webpack-notifier')
 
 // naming output files with hashes for better caching.
 // client/dist/index.html will be auto-generated with correct URLs.
@@ -41,7 +41,20 @@ config.plugins = (config.plugins || []).concat([
   }),
   // https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({
-    chunks: ["app"],
+    chunks: ['admin'],
+    filename: 'admin.html',
+    template: 'client/src/admin/index.html',
+    inject: true,
+    minify: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeAttributeQuotes: true
+      // more options:
+      // https://github.com/kangax/html-minifier#options-quick-reference
+    }
+  }),
+  new HtmlWebpackPlugin({
+    chunks: ['app'],
     filename: 'index.html',
     template: 'client/src/site/index.html',
     inject: true,
@@ -59,9 +72,9 @@ config.plugins = (config.plugins || []).concat([
         formatter: require('eslint-friendly-formatter')
       },
       vue: config.vue || {},
-      loaders: {},
-    },
-  }),
+      loaders: {}
+    }
+  })
   // new webpack.optimize.UglifyJsPlugin({
   //   compress: {
   //     warnings: false
@@ -69,4 +82,4 @@ config.plugins = (config.plugins || []).concat([
   // }),
 ])
 
-module.exports = config;
+module.exports = config

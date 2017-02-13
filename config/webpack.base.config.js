@@ -1,12 +1,13 @@
-var path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: {
-    app: './client/src/site/main.js'
+    app: './client/src/site/main.js',
+    admin: './client/src/admin/main.js'
   },
   output: {
-    path: "./client/dist",
-    filename: "js/[name].bundle.js",
+    path: path.join(__dirname, '../client/dist'),
+    filename: 'js/[name].bundle.js'
   },
   // resolve: {
   //   extensions: ['', '.js', '.vue'],

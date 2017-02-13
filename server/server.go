@@ -30,6 +30,10 @@ func RunServer() {
 		return c.File("client/dist/index.html")
 	})
 
+	e.GET("/unicorn", func(c echo.Context) error {
+		return c.File("client/dist/admin.html")
+	})
+
 	e.Static("/", "client/dist")
 
 	e.POST("/api/v1/login", controllers.Login)

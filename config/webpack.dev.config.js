@@ -1,7 +1,7 @@
-const webpack = require('webpack');
-const config = require('./webpack.base.config');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackNotifierPlugin = require("webpack-notifier");
+const webpack = require('webpack')
+const config = require('./webpack.base.config')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackNotifierPlugin = require('webpack-notifier')
 
 // eval-source-map is faster for development
 // config.devtool = '#eval-source-map'
@@ -32,6 +32,11 @@ config.plugins = (config.plugins || []).concat([
     template: 'client/src/site/index.html',
     inject: true
   }),
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: 'client/src/admin/index.html',
+    inject: true
+  }),
   new webpack.LoaderOptionsPlugin({
     options: {
       eslint: {
@@ -42,8 +47,8 @@ config.plugins = (config.plugins || []).concat([
       output: {
         publicPath: '/'
       }
-    },
-  }),
+    }
+  })
 ])
 
-module.exports = config;
+module.exports = config
