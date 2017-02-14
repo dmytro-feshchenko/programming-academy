@@ -1,7 +1,7 @@
 <template>
   <div class="app">
-    <div class="app__toolbar">
-      <toolbar></toolbar>
+    <div class="app__sidebar">
+      <sidebar></sidebar>
     </div>
     <div class="app__main">
       <div class="app__header">
@@ -19,15 +19,15 @@
 
 <script>
   import store from '../../vuex/store'
-  import HeaderBar from '../HeaderBar.vue'
-  import Toolbar from '../Toolbar.vue'
-  import FooterBar from '../FooterBar.vue'
+  import HeaderBar from './HeaderBar.vue'
+  import Sidebar from './Sidebar.vue'
+  import FooterBar from './FooterBar.vue'
 
   export default {
     store,
     components: {
       HeaderBar,
-      Toolbar,
+      Sidebar,
       FooterBar
     }
   }
@@ -58,7 +58,7 @@
     background: #404040;
   }
 
-  .app .app__toolbar {
+  .app .app__sidebar {
     /* 12em is the width of the columns */
     flex: 0 0 1em;
     /* put the nav on the left */
@@ -83,7 +83,7 @@
     .app .app__content {
       flex: 1;
     }
-    .app .app__toolbar {
+    .app .app__sidebar {
       /* 12em is the width of the columns */
       flex: 0 0 1em;
     }

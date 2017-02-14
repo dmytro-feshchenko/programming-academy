@@ -1,10 +1,16 @@
 <template lang="html">
   <div class="catalog">
     <h1>Browse courses</h1>
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
     <!-- render courses -->
     <div class="courses-preview-container">
       <div class="courses-preview-list">
-        <div v-for="course in coursesList"
+        <div v-for="course in courses"
           class="course-preview">
             <div class="course-preview__name">{{course.name.trim()}}</div>
             <div class="course-preview__description">
@@ -18,16 +24,49 @@
 
 <script>
 export default {
+  data () {
+    return {
+      loading: false,
+      content: null,
+      error: null,
+      courses: []
+    }
+  },
+  created () {
+    this.fetchData()
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData () {
+      this.error = this.content = null
+      this.loading = true
+      this.$store.dispatch('fetchCourses').then(() => {
+        this.loading = false
+        this.error = null
+        this.courses = this.$store.state.coursesModule.courses
+        console.log(this.courses)
+        this.content = true
+      })
+    }
+  },
+  ready: {
+
+  },
   computed: {
     coursesList () {
-      return [
-        { name: 'React.js', description: 'React JS Ecosystem' },
-        { name: 'Vue.js', description: 'Learn pros and cons of the components' },
-        { name: 'Go', description: 'Writing Server Side Rendering for Vue.js' },
-        { name: 'Webpack', description: 'How to build your project' },
-        { name: 'Karma', description: 'Learn and run your first E2E test' },
-        { name: 'Node.js', description: 'Write pure realtime chat with Node.js' }
-      ]
+      return this.$store.state.coursesModule.courses
+      // this.$store.dispatch('getCourses')
+      // return [
+      //   { name: 'React.js', description: 'React JS Ecosystem' },
+      //   { name: 'Vue.js', description: 'Learn pros and cons of the components' },
+      //   { name: 'Go', description: 'Writing Server Side Rendering for Vue.js' },
+      //   { name: 'Webpack', description: 'How to build your project' },
+      //   { name: 'Karma', description: 'Learn and run your first E2E test' },
+      //   { name: 'Node.js', description: 'Write pure realtime chat with Node.js' }
+      // ]
     }
   }
 }

@@ -6,6 +6,10 @@ import CatalogPage from './pages/CatalogPage.vue'
 import AdminLayout from './components/admin/Layout.vue'
 import FrontendOneColLayout from './components/frontend/layouts/OneColLayout.vue'
 // import FrontendFullPageLayout from './components/frontend/layouts/FullPageLayout.vue'
+import AdminDashboard from './components/admin/Dashboard.vue'
+import AdminUsersList from './components/admin/users/UsersListView.vue'
+import AdminCoursesList from './components/admin/courses/CoursesListView.vue'
+import AdminMessagesList from './components/admin/messages/MessagesListView.vue'
 import CourseDetailsView from './components/frontend/CourseDetailsView.vue'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -46,7 +50,13 @@ const router = new VueRouter({
       path: '/admin',
       component: AdminLayout,
       name: 'admin',
-      meta: { adminOnly: true }
+      meta: { adminOnly: true },
+      children: [
+        { path: 'dashboard', name: 'admin-dashboard', component: AdminDashboard },
+        { path: 'users', name: 'admin-users', component: AdminUsersList },
+        { path: 'courses', name: 'admin-courses', component: AdminCoursesList },
+        { path: 'messages', name: 'admin-messages', component: AdminMessagesList }
+      ]
     },
     {
       path: '*',

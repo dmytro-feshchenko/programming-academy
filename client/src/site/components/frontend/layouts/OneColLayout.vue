@@ -1,8 +1,5 @@
 <template>
   <div class="app">
-    <div class="app__toolbar">
-      <toolbar></toolbar>
-    </div>
     <div class="app__main">
       <div class="app__header">
         <header-bar></header-bar>
