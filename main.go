@@ -24,8 +24,12 @@ func main() {
 	}
 	defer db.DBCon.Close()
 
-	db.DBCon.DropTableIfExists(&models.User{})
-	db.DBCon.CreateTable(&models.User{})
+	// db.DBCon.DropTableIfExists(&models.User{})
+	// db.DBCon.DropTableIfExists(&models.Lesson{})
+	// db.DBCon.DropTableIfExists(&models.Course{})
+
+	db.DBCon.AutoMigrate(&models.User{}, &models.Lesson{}, &models.Course{})
+
 	// Run()
 	server.RunServer()
 }

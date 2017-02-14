@@ -26,15 +26,18 @@ func RunServer() {
 	}))
 
 	// unauthenticated routes
-	e.GET("/", func(c echo.Context) error {
-		return c.File("client/dist/index.html")
-	})
 
-	e.GET("/unicorn", func(c echo.Context) error {
-		return c.File("client/dist/admin.html")
-	})
+	// e.GET("/unicorn", func(c echo.Context) error {
+	// 	return c.File("client/dist/admin.html")
+	// })
 
-	e.Static("/", "client/dist")
+	e.Static("/static/*", "client/dist/static")
+
+	// e.GET("/", func(c echo.Context) error {
+	// 	return c.File("client/dist/index.html")
+	// })
+	//
+	e.File("/favicon.ico", "client/dist/favicon.ico")
 
 	e.POST("/api/v1/login", controllers.Login)
 
@@ -52,6 +55,16 @@ func RunServer() {
 	r.POST("/api/v1/users", controllers.CreateUser)
 	r.GET("/api/v1/users", controllers.GetUsersList)
 	r.GET("/api/v1/users/:id", controllers.GetUser)
+
+	r.POST("/api/v1/courses", controllers.CreateCourse)
+	e.GET("/api/v1/courses", controllers.GetCoursesList)
+	e.GET("/api/v1/courses/:id", controllers.GetUser)
+	r.PUT("/api/v1/courses/:id", controllers.UpdateCourse)
+	r.DELETE("/api/v1/courses/:id", controllers.DeleteCourse)
+
+	e.GET("*", func(c echo.Context) error {
+		return c.File("client/dist/index.html")
+	})
 
 	// run the web server
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))

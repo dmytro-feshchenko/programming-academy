@@ -1,5 +1,7 @@
 <template lang="html">
-  <h1>Dashboard</h1>
+  <div class="full-page-layout">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>

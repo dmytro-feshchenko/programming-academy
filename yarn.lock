@@ -4832,6 +4832,10 @@ vue-html-loader@^1.2.3:
     loader-utils "^0.2.15"
     object-assign "^4.1.0"
 
+vue-i18n@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-5.0.0.tgz#d1dc7c97eb01faf909fbaa3b93f64cc2f22989e4"
+
 vue-loader@^10.3.0:
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-10.3.0.tgz#436421736e9ad0f1c481330327c376963db86a19"

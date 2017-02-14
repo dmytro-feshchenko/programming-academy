@@ -1,5 +1,5 @@
 <template lang="html">
-  <h1>Error 404: Page Not Found</h1>
+  <h1>Course details page</h1>
 </template>
 
 <script>

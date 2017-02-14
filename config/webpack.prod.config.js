@@ -6,8 +6,8 @@ const WebpackNotifierPlugin = require('webpack-notifier')
 
 // naming output files with hashes for better caching.
 // client/dist/index.html will be auto-generated with correct URLs.
-config.output.filename = 'js/[name].[chunkhash].js'
-config.output.chunkFilename = 'js/[id].[chunkhash].js'
+config.output.filename = '/static/js/[name].[chunkhash].js'
+config.output.chunkFilename = '/static/js/[id].[chunkhash].js'
 
 // eval-source-map is faster for development
 // config.devtool = '#eval-source-map'
@@ -40,19 +40,6 @@ config.plugins = (config.plugins || []).concat([
     filename: './client/dist/css/app.bundle.css'
   }),
   // https://github.com/ampedandwired/html-webpack-plugin
-  new HtmlWebpackPlugin({
-    chunks: ['admin'],
-    filename: 'admin.html',
-    template: 'client/src/admin/index.html',
-    inject: true,
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeAttributeQuotes: true
-      // more options:
-      // https://github.com/kangax/html-minifier#options-quick-reference
-    }
-  }),
   new HtmlWebpackPlugin({
     chunks: ['app'],
     filename: 'index.html',

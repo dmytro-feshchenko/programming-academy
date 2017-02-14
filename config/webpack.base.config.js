@@ -2,8 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    app: './client/src/site/main.js',
-    admin: './client/src/admin/main.js'
+    app: './client/src/site/main.js'
   },
   output: {
     path: path.join(__dirname, '../client/dist'),

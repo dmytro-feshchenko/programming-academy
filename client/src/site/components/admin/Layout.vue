@@ -18,10 +18,10 @@
 </template>
 
 <script>
-  import store from '../vuex/store'
-  import HeaderBar from './HeaderBar.vue'
-  import Toolbar from './Toolbar.vue'
-  import FooterBar from './FooterBar.vue'
+  import store from '../../vuex/store'
+  import HeaderBar from '../HeaderBar.vue'
+  import Toolbar from '../Toolbar.vue'
+  import FooterBar from '../FooterBar.vue'
 
   export default {
     store,

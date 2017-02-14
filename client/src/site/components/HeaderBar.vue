@@ -4,9 +4,9 @@
 
     </div>
     <div class="header-bar__menu">
-      <router-link class="header-bar__link" to="/login">Login</router-link>
+      <router-link class="header-bar__link" :to="{ name: 'login' }">{{ $t("links.login") }}</router-link>
       &nbsp;/&nbsp;
-      <router-link class="header-bar__link" to="/signup">Sign Up</router-link>
+      <router-link class="header-bar__link" :to="{ name: 'signup' }">{{ $t("links.signup") }}</router-link>
     </div>
   </div>
 </template>

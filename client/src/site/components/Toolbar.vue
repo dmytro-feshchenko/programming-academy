@@ -4,10 +4,10 @@
 
     </div>
     <div class="toolbar__menu">
-      <router-link class="toolbar__link" to="/">
+      <router-link class="toolbar__link" :to="{ name: 'home' }">
         <i class="fa fa-home"></i><span class="toolbar__href">HOME</span>
       </router-link>
-      <router-link class="toolbar__link toolbar__link_last" to="/browse">
+      <router-link class="toolbar__link toolbar__link_last" :to="{ name: 'catalog' }">
         <i class="fa fa-graduation-cap"></i><span class="toolbar__href">Courses</span>
       </router-link>
     </div>
