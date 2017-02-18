@@ -1,28 +1,35 @@
 <template lang="html">
-  <table class="table table_ajax-reloading table_full-width table_bordered">
-    <thead>
-      <tr class="table-col table-col_bold">
-        <td class="table-col__cell" v-for="header in headers">{{ header.name }}</td>
-      </tr>
-      <tr class="search-row">
-        <td class="search-row__cell" v-for="header in headers">
-          <input class="search-row__input" type="search" :name="header.prop" :placeholder="header.name">
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="model in data">
-        <td v-for="header in headers">
-          {{ model[header.prop] }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <table class="table table_ajax-reloading table_full-width table_bordered">
+      <thead>
+        <tr class="table-col table-col_bold">
+          <td class="table-col__cell" v-for="header in headers">{{ header.name }}</td>
+        </tr>
+        <tr class="search-row">
+          <td class="search-row__cell" v-for="header in headers">
+            <input class="search-row__input" type="search" :name="header.prop" :placeholder="header.name">
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="model in data">
+          <td v-for="header in headers">
+            {{ model[header.prop] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination></pagination>
+  </div>
 </template>
 
 <script>
+import Pagination from './Pagination.vue'
 export default {
-  props: ['headers', 'data']
+  props: ['headers', 'data'],
+  components: {
+    Pagination
+  }
 }
 </script>
 

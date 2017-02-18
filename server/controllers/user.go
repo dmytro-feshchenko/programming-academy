@@ -62,5 +62,5 @@ func GetUsersList(c echo.Context) error {
 	if res := query.Find(&users); res.Error == nil {
 		return c.JSON(http.StatusOK, users)
 	}
-	return c.JSON(http.StatusNotFound, nil)
+	return c.JSON(http.StatusOK, []models.User{})
 }
