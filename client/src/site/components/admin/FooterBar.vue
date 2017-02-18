@@ -9,7 +9,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
   .copyright {
     padding: 1em;
     color: #999;

@@ -17,8 +17,8 @@ type User struct {
 	Birthday        time.Time  `json:"birthday" form:"birthday" query:"birthday"`
 	CreditCard      CreditCard `json:"credit_card"` // One-To-One relationship
 	Email           string     `json:"email" form:"email" query:"email"`
-	IsEmailVerified bool       `sql:"DEFAULT:false"`
-	IsSubscribed    bool       `sql:"DEFAULT:true"`
+	IsEmailVerified bool       `sql:"DEFAULT:false" json:"is_email_verified"`
+	IsSubscribed    bool       `sql:"DEFAULT:true" json:"is_subscribed"`
 	// Email      []Email    `json:"emails"`      // One-To-Many relationship
 }
 

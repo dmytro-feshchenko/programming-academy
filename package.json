@@ -9,7 +9,7 @@
     "build": "better-npm-run build:client:prod && better-npm-run build:server",
     "build:server": "better-npm-run build:server",
     "build:client": "better-npm-run build:client:prod",
-    "dev:client": "better-npm-run watch:client",
+    "watch:client": "better-npm-run watch:client",
     "dev:server": "better-npm-run dev:server",
     "vendor:save": "better-npm-run vendor:save",
     "vendor:restore": "better-npm-run vendor:restore",
@@ -23,11 +23,11 @@
         "NODE_ENV": "production"
       }
     },
-    "build:server": {
-      "command": "go build ./main.go"
-    },
     "watch:client": {
       "command": "webpack-dev-server --config ./config/webpack.dev.config.js --progress --colors"
+    },
+    "build:server": {
+      "command": "go build ./main.go"
     },
     "dev:server": {
       "command": "go run ./main.go",

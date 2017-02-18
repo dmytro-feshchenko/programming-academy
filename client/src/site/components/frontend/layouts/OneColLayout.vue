@@ -2,7 +2,7 @@
   <div class="app">
     <div class="app__main">
       <div class="app__header">
-        <header-bar></header-bar>
+        <main-header></main-header>
       </div>
       <div class="app__content">
         <router-view></router-view>
@@ -16,21 +16,21 @@
 
 <script>
   import store from '../../../vuex/store'
-  import HeaderBar from '../../HeaderBar.vue'
+  import MainHeader from '../MainHeader.vue'
   import Toolbar from '../../Toolbar.vue'
   import FooterBar from '../../FooterBar.vue'
 
   export default {
     store,
     components: {
-      HeaderBar,
+      MainHeader,
       Toolbar,
       FooterBar
     }
   }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
   .app {
     display: flex;
     min-height: 100vh;
@@ -52,7 +52,7 @@
 
   .app .app__header {
     padding: 1em;
-    background: #404040;
+    background: #55606e;
   }
 
   .app .app__toolbar {

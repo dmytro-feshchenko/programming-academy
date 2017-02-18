@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
   .toolbar {
     padding: 1em;
     border-radius: 3px;

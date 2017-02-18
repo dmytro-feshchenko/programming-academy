@@ -28,16 +28,39 @@ func GetUser(c echo.Context) error {
 	id, _ := strconv.ParseUint(c.Param(":id"), 10, 64)
 	find.ID = uint(id)
 	if res := db.DBCon.Find(&u, &find); res.Error == nil {
-		return c.JSON(http.StatusFound, u)
+		return c.JSON(http.StatusOK, u)
 	}
 	return c.JSON(http.StatusNotFound, nil)
 }
 
-// GetUsersList - Find all users
+// GetUsersList - Find users
 func GetUsersList(c echo.Context) error {
 	users := []models.User{}
-	if res := db.DBCon.Find(&users); res.Error == nil {
-		return c.JSON(http.StatusFound, users)
+	page, _ := strconv.ParseInt(c.QueryParam("page"), 10, 60)
+	perPage, _ := strconv.ParseInt(c.QueryParam("per-page"), 10, 60)
+	sortKey := c.QueryParam("sort")
+
+	query := db.DBCon
+
+	if perPage != 0 {
+		if page < 1 {
+			page = 1
+		}
+		query = query.Limit(perPage).Offset((page - 1) * perPage)
+	}
+
+	if sortKey != "" {
+		sortOrder := "asc"
+
+		if []rune(sortKey)[0] == rune('-') {
+			sortOrder = "desc"
+			sortKey = sortKey[1:len(sortKey)]
+		}
+		query = query.Order(sortKey + " " + sortOrder)
+	}
+
+	if res := query.Find(&users); res.Error == nil {
+		return c.JSON(http.StatusOK, users)
 	}
 	return c.JSON(http.StatusNotFound, nil)
 }

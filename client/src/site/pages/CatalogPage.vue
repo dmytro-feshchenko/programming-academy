@@ -47,7 +47,6 @@ export default {
         this.loading = false
         this.error = null
         this.courses = this.$store.state.coursesModule.courses
-        console.log(this.courses)
         this.content = true
       })
     }

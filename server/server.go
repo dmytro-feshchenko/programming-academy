@@ -32,6 +32,7 @@ func RunServer() {
 	// })
 
 	e.Static("/static/*", "client/dist/static")
+	e.Static("/public/*", "public/")
 
 	// e.GET("/", func(c echo.Context) error {
 	// 	return c.File("client/dist/index.html")
@@ -53,7 +54,7 @@ func RunServer() {
 
 	// Route => handler
 	r.POST("/api/v1/users", controllers.CreateUser)
-	r.GET("/api/v1/users", controllers.GetUsersList)
+	e.GET("/api/v1/users", controllers.GetUsersList)
 	r.GET("/api/v1/users/:id", controllers.GetUser)
 
 	r.POST("/api/v1/courses", controllers.CreateCourse)

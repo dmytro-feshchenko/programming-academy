@@ -4,7 +4,7 @@ const actions = {
   fetchCourses: (context) => {
     return api.get('/api/v1/courses')
       .then((response) => {
-        context.commit('FETCH_COURSES', response)
+        context.commit('FETCH_COURSES', response.body)
       })
       .catch((error) => context.commit('API_FAILURE', error))
   },

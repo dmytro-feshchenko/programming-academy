@@ -32,11 +32,6 @@ config.plugins = (config.plugins || []).concat([
     template: 'client/src/site/index.html',
     inject: true
   }),
-  new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: 'client/src/admin/index.html',
-    inject: true
-  }),
   new webpack.LoaderOptionsPlugin({
     options: {
       eslint: {
