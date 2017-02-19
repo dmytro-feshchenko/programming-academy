@@ -1,9 +1,9 @@
 module.exports = {
   app: {
     info: {
-      name: 'Brainly',
-      fullName: 'Brainly - online learning platform for IT specialists',
-      desc: 'You can use Brainly\'s online trainings, courses and materials to improve your skills.',
+      name: 'Moonly',
+      fullName: 'Moonly - online learning platform for IT specialists',
+      desc: 'You can use Moonly\'s online trainings, courses and materials to improve your skills.',
       shortDesc: 'Online learning platform'
     }
   },
@@ -18,8 +18,8 @@ module.exports = {
       users: 'Manage Users'
     },
     app: {
-      name: 'Brainly v1.0',
-      abbr: 'B'
+      name: 'Moonly v1.0',
+      abbr: 'M'
     }
   },
   frontend: {

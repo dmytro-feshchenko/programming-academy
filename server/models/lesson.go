@@ -1,10 +1,8 @@
 package models
 
-import "github.com/jinzhu/gorm"
-
 // Lesson - lesson model
 type Lesson struct {
-	gorm.Model
+	Model
 	Name        string `gorm:"size: 255" json:"name" form:"name" query:"name"`
 	Description string `gorm:"size:255" json:"description" form:"description" query:"description"`
 	Order       int    `json:"order" form:"order" query:"order"` // order in course
@@ -16,6 +14,6 @@ type Lesson struct {
 
 // LessonType - lesson types model
 type LessonType struct {
-	gorm.Model
+	Model
 	Name string
 }

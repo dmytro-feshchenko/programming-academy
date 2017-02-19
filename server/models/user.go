@@ -8,10 +8,11 @@ import (
 
 // User - model for user
 type User struct {
-	gorm.Model
+	Model
 
 	FirstName string `json:"first_name" gorm:"size:255" form:"first_name" query:"first_name"`
 	LastName  string `json:"last_name" gorm:"size:255" form:"last_name" query:"last_name"`
+	FullName  string `json:"full_name" gorm:"size:510"`
 	Password  string `json:"password,omitempty"`
 
 	Birthday        time.Time  `json:"birthday" form:"birthday" query:"birthday"`
@@ -24,7 +25,7 @@ type User struct {
 
 // Email - email for user
 type Email struct {
-	gorm.Model
+	Model
 	UserID     uint   `json:"user_id",gorm:"index"` // foreign key (belongs to)
 	Email      string `json:"email",gorm:"type:varchar(254);unique_index"`
 	Subscribed bool   `json:"subscribed"`
@@ -32,7 +33,17 @@ type Email struct {
 
 // CreditCard - credit card info
 type CreditCard struct {
-	gorm.Model
+	Model
 	UserID uint   `json:"user_id"`
 	Number string `json:"number"`
+}
+
+//BefoeSave - before saving user
+func (u *User) BeforeSave(tx *gorm.DB) (err error) {
+	// set full name field if first_name or last_name have been changed
+	fullName := u.FirstName + " " + u.LastName
+	if u.FullName != fullName {
+		tx.Model(u).Update("FullName", fullName)
+	}
+	return
 }

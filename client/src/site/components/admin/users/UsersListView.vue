@@ -7,7 +7,12 @@
     <div class="error" v-if="error">
       {{ error }}
     </div>
-    <ajax-table :headers="headers" :data="users"></ajax-table>
+    <ajax-table
+      :headers="tableHeaders"
+      :data="users"
+      pagination-info-template="Showing: {from} - {to} out of {total} records"
+      pagination-info-no-data-template="The requested query return no result"
+    ></ajax-table>
   </div>
 </template>
 
@@ -16,26 +21,25 @@ import AjaxTable from '../../common/tables/AjaxTable.vue'
 export default {
   data () {
     return {
-      headers: [
-        {
-          prop: 'first_name',
-          name: 'First Name'
-        },
-        {
-          prop: 'last_name',
-          name: 'Last Name'
-        },
-        {
-          prop: 'email',
-          name: 'Email'
-        },
+      tableHeaders: [
+        { prop: 'id', name: 'ID', sortable: true, sortOrder: 'asc' },
+        { prop: 'full_name', name: 'Name', sortable: true },
+        // { prop: 'first_name', name: 'First Name', sortable: true },
+        // { prop: 'last_name', name: 'Last Name', sortable: true },
+        { prop: 'email', name: 'Email', type: 'email', sortable: true },
         {
           prop: 'is_email_verified',
-          name: 'Verified?'
+          name: 'Verified',
+          type: 'boolean',
+          sortable: true,
+          hint: 'Shows whether the email address of the user is confirmed'
         },
         {
           prop: 'is_subscribed',
-          name: 'Subscribed?'
+          name: 'Subscribed',
+          type: 'boolean',
+          sortable: true,
+          hint: 'Shows whether the user is subscribed to email notifications'
         }
       ],
       loading: true,

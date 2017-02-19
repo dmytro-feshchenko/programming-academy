@@ -61,9 +61,8 @@ const router = new VueRouter({
     {
       path: '*',
       component: FrontendOneColLayout,
-      name: 'page-404',
       children: [
-        { path: '', component: NotFoundPage }
+        { path: '', name: 'page-404', component: NotFoundPage }
       ]
     }
   ]
