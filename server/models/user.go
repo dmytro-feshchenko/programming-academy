@@ -13,7 +13,8 @@ type User struct {
 	FirstName string `json:"first_name" gorm:"size:255" form:"first_name" query:"first_name"`
 	LastName  string `json:"last_name" gorm:"size:255" form:"last_name" query:"last_name"`
 	FullName  string `json:"full_name" gorm:"size:510"`
-	Password  string `json:"password,omitempty"`
+	Username  string `json:"username" gorm:"size:255" form:"username" query:"username"`
+	Password  []byte `json:"-" gorm:"type:bytea"`
 
 	Birthday        time.Time  `json:"birthday" form:"birthday" query:"birthday"`
 	CreditCard      CreditCard `json:"credit_card"` // One-To-One relationship
@@ -38,7 +39,7 @@ type CreditCard struct {
 	Number string `json:"number"`
 }
 
-//BefoeSave - before saving user
+//BeforeSave - before saving user
 func (u *User) BeforeSave(tx *gorm.DB) (err error) {
 	// set full name field if first_name or last_name have been changed
 	fullName := u.FirstName + " " + u.LastName

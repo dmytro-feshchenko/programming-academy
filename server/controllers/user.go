@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"programming-academy/server/db"
 	"programming-academy/server/models"
+	utils "programming-academy/server/utils"
 	"strconv"
 
 	"github.com/labstack/echo"
@@ -15,6 +17,17 @@ func CreateUser(c echo.Context) error {
 	if err := c.Bind(u); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
+	// encrypt password
+	password, err := utils.EncryptPassword(c.FormValue("password"))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	u.Password = password
+
+	fmt.Println(password)
+
 	if res := db.DBCon.Create(u); res.Error != nil {
 		return c.JSON(http.StatusBadRequest, res.Error)
 	}
@@ -60,7 +73,18 @@ func GetUsersList(c echo.Context) error {
 	}
 
 	if res := query.Find(&users); res.Error == nil {
+		if perPage != 0 {
+			var totalCount int
+			query.Limit(-1).Find(&[]models.User{}).Count(&totalCount)
+			xPaginationCount := strconv.Itoa(totalCount)
+			xPaginationPage := strconv.Itoa(int(page))
+			xPaginationLimit := strconv.Itoa(int(perPage))
+			c.Response().Header().Add("X-Pagination-Count", xPaginationCount)
+			c.Response().Header().Add("X-Pagination-Page", xPaginationPage)
+			c.Response().Header().Add("X-Pagination-Limit", xPaginationLimit)
+		}
 		return c.JSON(http.StatusOK, users)
 	}
+
 	return c.JSON(http.StatusOK, []models.User{})
 }

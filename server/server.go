@@ -55,7 +55,7 @@ func RunServer() {
 	// Route => handler
 	r.POST("/api/v1/users", controllers.CreateUser)
 	e.GET("/api/v1/users", controllers.GetUsersList)
-	r.GET("/api/v1/users/:id", controllers.GetUser)
+	e.GET("/api/v1/users/:id", controllers.GetUser)
 
 	r.POST("/api/v1/courses", controllers.CreateCourse)
 	e.GET("/api/v1/courses", controllers.GetCoursesList)

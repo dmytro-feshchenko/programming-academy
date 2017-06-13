@@ -15,21 +15,21 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
+var connectionString = "host=localhost123 user=postgres dbname=moonly sslmode=disable password=postgres"
+
 func main() {
-	// connection := os.Getenv("DATABASE_URL")
 	var err error
-	db.DBCon, err = gorm.Open("postgres", "host=localhost user=postgres dbname=brainly sslmode=disable password=postgres")
+	// init connection to the db
+	db.DBCon, err = gorm.Open("postgres", connectionString)
 	if err != nil {
-		fmt.Println("Database connection error" + err.Error())
+		panic(fmt.Sprintf("Database connection error: %s", err.Error()))
 	}
+	// close connection after stopping
 	defer db.DBCon.Close()
 
-	// db.DBCon.DropTableIfExists(&models.User{})
-	// db.DBCon.DropTableIfExists(&models.Lesson{})
-	// db.DBCon.DropTableIfExists(&models.Course{})
-
+	// apply auto migrations to all required models
 	db.DBCon.AutoMigrate(&models.User{}, &models.Lesson{}, &models.Course{})
 
-	// Run()
+	// run the web server
 	server.RunServer()
 }

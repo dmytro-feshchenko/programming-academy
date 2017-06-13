@@ -78,3 +78,8 @@ func DeleteCourse(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, true)
 }
+
+// GetLessonsForCourse -
+func GetLessonsForCourse() error {
+	return nil
+}

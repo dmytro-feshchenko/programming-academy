@@ -3,9 +3,16 @@
     <table class="table table_ajax-reloading table_full-width table_bordered">
       <thead>
         <tr class="table-col table-col_bold">
+          <template v-if="batchActions">
+            <td><input type="checkbox" name="batch-action"></td>
+          </template>
           <td class="table-col__cell" v-for="header in headers">
             <template v-if="header.sortable">
-              <a href="#" class="table-col__sortable">{{ header.name }}</a>
+              <router-link
+                :to="{ name: routeName, query: { sort: header.prop }}"
+                class="table-col__sortable">
+                {{ header.name }}
+              </router-link>
             </template>
             <template v-else>
               {{ header.name }}
@@ -13,6 +20,9 @@
           </td>
         </tr>
         <tr class="search-row">
+          <template v-if="batchActions">
+            <td></td>
+          </template>
           <td class="search-row__cell" v-for="header in headers">
             <template v-if="header.type == 'boolean'">
               <select class="search-row__select" :name="header.prop">
@@ -29,6 +39,9 @@
       </thead>
       <tbody>
         <tr v-for="model in data">
+          <template v-if="batchActions">
+            <td><input type="checkbox" name="batch-action"></td>
+          </template>
           <td v-for="header in headers">
             <template v-if="header.type == 'boolean'">
               <div class="text-center">
@@ -44,22 +57,48 @@
               <template v-if="header.type == 'email'">
                 <a class="table__mail-link" :href="'mailto:' + model[header.prop]">{{ model[header.prop] }}</a>
               </template>
-              <template v-else>{{ model[header.prop] }}</template>
+              <template v-else>
+                <template v-if="header.link == 'entity'">
+                  <router-link
+                    :to="{ name: childRouteName, params: { 'id': model['id'] }}"
+                    class="table__link">
+                    {{ model[header.prop] }}
+                  </router-link>
+                </template>
+                <template v-else>{{ model[header.prop] }}</template>
             </template>
           </td>
         </tr>
       </tbody>
     </table>
-    <pagination></pagination>
+    <pagination
+      :page="page"
+      :perPage="perPage"
+      :totalCount="totalCount"
+      :routeName="routeName">
+    </pagination>
   </div>
 </template>
 
 <script>
 import Pagination from './Pagination.vue'
 export default {
-  props: ['headers', 'data'],
+  props: [
+    'headers',
+    'data',
+    'routeName',
+    'childRouteName',
+    'batchActions',
+    'defaultPerPage',
+    'page',
+    'perPage',
+    'totalCount'
+  ],
   components: {
     Pagination
+  },
+  computed: {
+
   }
 }
 </script>
@@ -92,6 +131,14 @@ export default {
 
   }
 
+  .table-col .table-col__sortable {
+    color: #233445;
+    text-decoration: none;
+  }
+  .table-col .table-col__sortable:hover {
+    text-decoration: underline;
+  }
+
   .search-row .search-row__cell {
     padding: .4rem .7rem;
   }
@@ -106,6 +153,10 @@ export default {
     font-weight: bold;
   }
 
+  .table .table__link {
+    color: #233445;
+    font-size: 16px;
+  }
   .table .table__mail-link {
     color: #233445;
     font-size: 14px;

@@ -1,6 +1,6 @@
 ## Synopsis
 
-Service for learning programming
+Service for online IT Academy
 
 ## Motivation
 
